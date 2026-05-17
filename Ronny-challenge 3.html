@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ronny's 14-Day Challenge</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fdf6f0;font-family:'Trebuchet MS',sans-serif;color:#3d2c1e;min-height:100vh}
+button{font-family:inherit;cursor:pointer;transition:all 0.2s}
+button:hover:not(:disabled){filter:brightness(0.96);transform:translateY(-1px)}
+.wrap{max-width:840px;margin:0 auto;padding:24px 16px}
+.lbl{font-size:11px;letter-spacing:4px;color:#e8632a;text-transform:uppercase;margin-bottom:6px}
+.sub{font-size:13px;color:#a08070}
+.grid-card{background:#fff8f2;border:1px solid #f0dfd0;border-radius:20px;padding:16px;margin-bottom:20px;box-shadow:0 2px 16px rgba(232,99,42,0.06)}
+.day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.db{padding:10px 4px;border-radius:12px;border:none;background:rgba(232,99,42,0.05);color:#a08070;font-size:13px}
+.db.act{background:linear-gradient(135deg,#e8632a,#f5a623);color:#fff;font-weight:bold;box-shadow:0 4px 14px rgba(232,99,42,0.35)}
+.db.cmp{background:linear-gradient(135deg,#d4f5ed,#b8ead8);color:#2d8e7a}
+.de{font-size:14px;margin-bottom:2px}
+.day-card{background:#fff8f2;border:1px solid #f0dfd0;border-radius:16px;padding:14px 18px;margin-bottom:16px;box-shadow:0 2px 12px rgba(232,99,42,0.07)}
+.dci{display:flex;align-items:center;gap:12px;min-height:52px}
+.dc-em{font-size:36px;line-height:1;flex-shrink:0}
+.dc-info{flex:1;min-width:0}
+.dn{font-size:9px;letter-spacing:3px;color:#e8632a;text-transform:uppercase;margin-bottom:2px}
+.dt{font-size:16px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rings{display:flex;gap:16px;flex-shrink:0;align-self:flex-end;padding-bottom:2px}
+.rw{position:relative;width:42px;height:42px}
+.rn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tb{flex:1;padding:13px;border-radius:14px;border:none;background:rgba(255,255,255,0.6);color:#a08070;font-size:15px;border-bottom:3px solid transparent}
+.tb.td{background:#e8f7f4;color:#2d8e7a;font-weight:700;border-bottom:3px solid #2d8e7a}
+.tb.tm{background:#e8f0fa;color:#4a90d9;font-weight:700;border-bottom:3px solid #4a90d9}
+.panel{animation:su 0.25s ease}
+.fc-d{background:linear-gradient(135deg,#f0faf7,#e0f5ef);border:1px solid #b8e8dc;border-radius:18px;padding:20px;margin-bottom:12px}
+.fc-m{background:linear-gradient(135deg,#eef4fd,#deeaf9);border:1px solid #b8d0f0;border-radius:18px;padding:20px;margin-bottom:12px}
+.fh{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.fb{font-size:26px}
+.fsl-d{font-size:10px;letter-spacing:2px;color:#2d8e7a;text-transform:uppercase;margin-bottom:2px}
+.fsl-m{font-size:10px;letter-spacing:2px;color:#4a90d9;text-transform:uppercase;margin-bottom:2px}
+.ft-d{font-size:17px;font-weight:bold;color:#1a5c4a}
+.ft-m{font-size:17px;font-weight:bold;color:#1a3a6c}
+.fc2-d{font-size:14px;color:#2d6b57;line-height:1.7;margin-bottom:12px;font-style:italic}
+.fc2-m{font-size:14px;color:#1e3a7a;line-height:1.7;margin-bottom:12px;font-style:italic}
+.ff-d{background:rgba(255,255,255,0.7);border-radius:10px;padding:11px 13px;font-size:13px;color:#1a5c4a;line-height:1.6;border-left:4px solid #2d8e7a}
+.ff-m{background:rgba(255,255,255,0.7);border-radius:10px;padding:11px 13px;font-size:13px;color:#1e3a7a;line-height:1.6;border-left:4px solid #4a90d9}
+.tc{background:#fff8f2;border:1px solid #f0dfd0;border-radius:16px;padding:18px}
+.tl{font-size:11px;letter-spacing:2px;color:#a08070;text-transform:uppercase;margin-bottom:10px}
+.tlist{display:flex;flex-direction:column;gap:6px}
+.task{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;border:none;text-align:left;width:100%}
+.task.du{background:rgba(45,142,122,0.04);border-left:3px solid #f0dfd0}
+.task.dd{background:linear-gradient(135deg,#e8f7f3,#d4f0e8);border-left:3px solid #2d8e7a}
+.task.mu{background:rgba(74,144,217,0.04);border-left:3px solid #f0dfd0}
+.task.md{background:linear-gradient(135deg,#eef4fd,#deeaf9);border-left:3px solid #4a90d9}
+.cb{width:22px;height:22px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.tx{font-size:13px;line-height:1.4}
+.nav{display:flex;gap:10px;margin-top:18px}
+.np{flex:1;padding:14px;border-radius:14px;background:#fff8f2;border:1px solid #f0dfd0;color:#a08070;font-size:14px}
+.np:disabled{color:#f0dfd0;cursor:not-allowed;transform:none;filter:none}
+.nn{flex:2;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,#e8632a,#f5a623);color:#fff;font-size:14px;font-weight:700;box-shadow:0 4px 18px rgba(232,99,42,0.35)}
+.nn:disabled{background:#fff8f2;border:1px solid #f0dfd0;color:#f0dfd0;box-shadow:none;cursor:not-allowed;transform:none;filter:none}
+.footer{text-align:center;margin-top:24px;padding-bottom:28px;font-size:12px;color:#a08070}
+.footer span{font-size:11px;color:#d0c0b0}
+.bo{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:rgba(61,44,30,0.75)}
+.bb{text-align:center;padding:48px 40px;border-radius:28px;background:linear-gradient(145deg,#fff8f0,#ffeedd);box-shadow:0 24px 80px rgba(232,99,42,0.35);animation:pi 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+.be{font-size:64px;margin-bottom:12px}
+.bt{font-size:26px;font-weight:bold;color:#e8632a;margin-bottom:8px}
+.bs{font-size:15px;color:#a08070}
+@keyframes su{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pi{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+svg.ring{transform:rotate(-90deg)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+var DAYS=[
+ {day:1,emoji:"🔥",theme:"Ronny, Let's Go!",diet:{badge:"💧",focus:"Hydration First",challenge:"Today is simple — just drink MORE water than you ever have. 8 full glasses. Your body has been dehydrated for months and it's been storing fat as a result. Water is free. Water is powerful. Start here.",rules:["Drink 8 glasses of water (≥2L)","Cut all sugary drinks — soda, bubble tea, sweet coffee","No eating after 8pm","🏃 Move it: 10-minute evening walk — just start, that's the hardest part"],funFact:"💡 Drinking cold water burns an extra 8 calories per glass as your body heats it up. Small, but it adds up!"},mind:{badge:"🎯",focus:"Set Your WHY",challenge:"You can't win a game without knowing the score. Today write down your ONE reason for doing this challenge. Is it energy? Confidence? Health? Family? Write it. Put it somewhere you'll see every morning.",practices:["Write your #1 reason on paper — keep it visible","3 deep breaths before opening your phone each morning","Tell ONE person you're starting this challenge (accountability!)","Rate your energy today: 1–10. Remember this number."],funFact:"🧠 Studies show people who write their goals down are 42% more likely to achieve them. So write it!"}},
+ {day:2,emoji:"⚡",theme:"Ronny Fuels Up!",diet:{badge:"🥗",focus:"Protein is King",challenge:"Your body at 43 loses muscle twice as fast as it did at 30. Protein fights back. Today make sure every meal has a clear protein source — eggs, chicken, fish, tofu, beans. No protein? Doesn't count as a meal.",rules:["Every meal must have a protein source","Swap white rice for brown rice or reduce rice portion by half","Avoid fried food — grilled, steamed, or boiled only","🏃 Move it: 15-minute brisk walk after lunch or dinner"],funFact:"💡 Protein keeps you full 3x longer than carbs. Eat it first at every meal and you'll naturally eat less."},mind:{badge:"🌅",focus:"Morning Momentum",challenge:"The first 30 minutes of your day set the tone for everything. No phone. No news. Just you and your intentions. Try it once and you'll feel the difference by 10am.",practices:["First 30 min of the day — no phone, no social media","Do 10 jumping jacks or stretches when you wake up","Say out loud: 'Today I am one step closer to my best self'","Drink a glass of water before coffee"],funFact:"🧠 Morning routines reduce stress hormones by up to 30% within just one week of practice."}},
+ {day:3,emoji:"🌱",theme:"Ronny Goes Green!",diet:{badge:"🌿",focus:"Go Green",challenge:"Challenge accepted? Today add ONE extra serving of vegetables to every meal. Doesn't have to be fancy — morning glory, broccoli, cucumber, tomatoes. Your gut will literally thank you by day 5.",rules:["At least one vegetable serving per meal","No processed / packaged snacks today","Herbal tea instead of sugary drinks in the afternoon","🏃 Move it: 20 squats + 10 push-ups before your shower tonight"],funFact:"💡 Eating vegetables first at each meal reduces total calorie intake by 12% on average. Eat your greens first!"},mind:{badge:"💪",focus:"Positive Self-Talk",challenge:"Your inner voice is either your best coach or your worst enemy. Notice how you talk to yourself today. When you catch a negative thought — replace it immediately. Not fake positivity — just realistic kindness.",practices:["Catch 3 negative thoughts and reframe them positively","Morning mirror moment: look yourself in the eye and nod","Identify one thing you did well yesterday","15-minute walk outside — solo, no earphones"],funFact:"🧠 Negative self-talk raises cortisol — the fat-storing hormone. Literally, being kinder to yourself helps you lose weight."}},
+ {day:4,emoji:"🏃",theme:"Ronny Gets Moving!",diet:{badge:"⚖️",focus:"Portion Control Mastery",challenge:"You don't need to eat less — you need to eat right. Half your plate = vegetables. Quarter = protein. Quarter = carbs. Try this at lunch and dinner today. It works every time.",rules:["Use the half-plate vegetable rule at lunch and dinner","Skip dessert — swap for fresh fruit if needed","Avoid MSG-heavy dishes — choose clear soups over creamy ones","🏃 Move it: Take stairs all day — no elevator allowed"],funFact:"💡 It takes 20 minutes for your brain to register fullness. Eat slow, win the hunger game."},mind:{badge:"🏋️",focus:"Move Your Body",challenge:"Office life is slowly killing your metabolism. Today your challenge: move your body for at least 20 minutes. Walk, stairs, anything. Your body was designed to move — not sit 9 hours in a chair.",practices:["20-minute walk or light movement — non-negotiable today","Take stairs instead of elevator all day","Stand up every 90 minutes (set a phone alarm)","Evening stretch for 5 minutes before sleep"],funFact:"🧠 Just 20 minutes of walking increases serotonin and dopamine — your brain's natural mood boosters — for up to 12 hours."}},
+ {day:5,emoji:"☀️",theme:"Ronny's On Fire!",diet:{badge:"🌶️",focus:"Metabolism Boosters",challenge:"Certain foods naturally fire up your metabolism — and lucky for you, Thai food is full of them. Chili, ginger, turmeric, green tea. Add them intentionally today. Your body will burn more even while you sit at your desk.",rules:["Include spice (chili or ginger) in at least one meal","Switch afternoon coffee for green tea — no sugar","Drink warm water with lemon first thing in the morning","🏃 Move it: 20-minute walk outside — let the sun hit your face"],funFact:"💡 Capsaicin in chili peppers boosts metabolism by 4–5% for up to 3 hours after eating. Spicy = smart."},mind:{badge:"🌟",focus:"Confidence Activation",challenge:"Confidence isn't something you wait to feel — it's something you build with action. Today do ONE thing that makes you proud of yourself before noon. Anything. Get that win early and watch your whole day shift.",practices:["Do your hardest task first thing in the morning","2-minute power stance before an important meeting or call","Compliment one colleague genuinely today","Write down 3 things you're good at — keep the list"],funFact:"🧠 Research shows completing even a small task triggers dopamine — the motivation molecule. Win early, win often."}},
+ {day:6,emoji:"🧘",theme:"Ronny Chills Out!",diet:{badge:"🛡️",focus:"Anti-Inflammatory Day",challenge:"Stress + sitting + bad food = chronic inflammation = belly fat that won't budge. Today go clean: turmeric, salmon or mackerel, berries, leafy greens. Think of it as putting out a fire inside your body.",rules:["Include turmeric (golden latte, curry) somewhere today","Choose fish or plant protein over pork or beef","Absolutely no alcohol tonight","🏃 Move it: 10-minute gentle stretch or yoga before bed — your body deserves it"],funFact:"💡 Chronic inflammation can cause your body to hold 3–5kg of excess water weight. Eat clean, deflate fast."},mind:{badge:"🌊",focus:"Workplace Zen",challenge:"You can't control deadlines, bosses, or office politics. But you CAN control your response. Today practice the 10-second pause — before reacting to anything stressful, breathe for 10 seconds first. Game changer.",practices:["Use the 10-second pause before every stressful response","Eat lunch away from your desk — full break","Find one moment of genuine quiet today (5 min)","No work email after 8pm — your rest matters"],funFact:"🧠 A 10-second breathing pause lowers cortisol by up to 23% instantly. That's better than most stress medications."}},
+ {day:7,emoji:"🏆",theme:"Ronny Wins Week 1!",diet:{badge:"📊",focus:"Check Your Progress",challenge:"Step on the scale this morning. Whatever the number — it's information, not judgment. You may have lost 0.5–1.5kg already. More importantly: notice your energy, your sleep, your hunger patterns. THOSE are the real wins.",rules:["Weigh yourself — write down the number","Eat your favourite healthy meal today — you earned a good one","Plan 3 healthy choices you'll continue in week 2","🏃 Move it: Celebratory 30-minute walk — you earned every step"],funFact:"💡 Most of the weight lost in week 1 is water and inflammation. Real fat loss kicks in from week 2. Stay consistent!"},mind:{badge:"🎉",focus:"Victory Lap",challenge:"You survived Week 1. That's more than most people ever do. Today is for reflection — not perfection. What worked? What was hard? What surprised you? Write it all down.",practices:["Full week 1 reflection — write what worked and what was hard","Share your progress with a close friend or family member","Visualize yourself at 72kg — how do you move? How do you feel?","Set ONE powerful intention for Week 2"],funFact:"🧠 Sharing your progress with even ONE person doubles your chance of completing the challenge. Tell someone today!"}},
+ {day:8,emoji:"🎯",theme:"Ronny Locks In!",diet:{badge:"⏰",focus:"Eating Window",challenge:"Try time-restricted eating today: eat only between 7am and 8pm. That's a 13-hour eating window — easy and effective. When you stop eating late, your body switches to burning stored fat overnight. This is not starvation. It's strategy.",rules:["Eating window: 7am–8pm only — nothing after","Drink water or herbal tea if hungry after 8pm","Biggest meal at lunch, lightest at dinner","🏃 Move it: 15-minute walk right after your biggest meal — kickstart the burn"],funFact:"💡 A 12–14 hour eating window can boost fat burning by up to 20% — and you're asleep for most of the fast!"},mind:{badge:"🔬",focus:"Focus Architecture",challenge:"Week 2 is where weak habits die and strong ones are born. Today build your focus like an architect: plan your energy, not just your time. When is your peak? Guard that window fiercely.",practices:["Identify your peak energy hours — work ONLY on important things then","90-minute deep work block — no interruptions","4-7-8 breathing when mind fog hits (inhale 4, hold 7, exhale 8)","Write tomorrow's top priority BEFORE closing your laptop"],funFact:"🧠 The average office worker is only truly productive for 2h53min per day. Protect your peak hours and you'll outperform everyone."}},
+ {day:9,emoji:"⚙️",theme:"Ronny, No Excuses!",diet:{badge:"🔋",focus:"Energy Balance",challenge:"At 43, your metabolism runs about 10% slower than at 30. That's real, but it's workable. Focus today on QUALITY over QUANTITY — every bite should either build muscle, feed your brain, or support your heart.",rules:["Ask yourself before eating: 'Is this earning its place in my body?'","Include omega-3 food today (fish, walnuts, flaxseed)","Take a 10-minute walk after your biggest meal","🏃 Move it: 3 sets of 15 bodyweight squats — no gym needed, just you and gravity"],funFact:"💡 Metabolism slows ~2% per decade after 30 — but strength-building habits can fully reverse this. You have control."},mind:{badge:"❤️",focus:"Emotional Resilience",challenge:"Hard-working men like Ronny often carry invisible weight — unexpressed stress, suppressed frustration, unsaid things. Today practice feeling AND releasing. Name one emotion you've been carrying. Write it. Then let it go on paper.",practices:["Name one emotion you've been carrying this week — write it down","Tension-release: tense every muscle 5 seconds, then release. 3 rounds.","Do something purely for enjoyment today — 20 minutes of anything you love","Before sleep: write one worry on paper, fold it, and put it away"],funFact:"🧠 Unexpressed stress raises cortisol for 18+ hours. Journaling for just 4 minutes reduces it by up to 35%."}},
+ {day:10,emoji:"🌟",theme:"Ronny's Brain Day!",diet:{badge:"🧠",focus:"Brain Food Day",challenge:"Your brain is 60% fat and burns 20% of your daily calories. Feed it RIGHT and your work performance, mood, and decision-making all improve. Today eat like your career depends on it — because your brain literally does.",rules:["Include brain foods: blueberries, walnuts, avocado, eggs, dark chocolate (small)","Limit caffeine after 2pm — it disrupts deep sleep which burns fat","Aim for 8 hours sleep tonight — it's when fat burning peaks","🏃 Move it: 20-minute evening walk — clear your head, burn some calories"],funFact:"💡 Poor sleep increases hunger hormones by 24% the next day. Sleep = one of the most powerful weight loss tools."},mind:{badge:"🚀",focus:"Peak State Activation",challenge:"Elite performers don't wait to feel motivated — they CREATE their state. Today pick ONE physical trigger that shifts your energy: cold water on your face, a pump-up song, 10 jumping jacks. Use it every time energy dips.",practices:["Create your personal energy trigger — use it 3 times today","End shower with 20 seconds of cold water (brave it!)","Take stairs exclusively today — no exceptions","Evening: replay one moment from today when you felt strong"],funFact:"🧠 Cold water exposure triggers a 200–300% spike in norepinephrine — the focus and drive neurotransmitter. 20 seconds is all it takes."}},
+ {day:11,emoji:"🌊",theme:"Ronny Hits Reset!",diet:{badge:"🧹",focus:"Light & Clean Day",challenge:"Give your digestive system a break today. Think lighter — soups, steamed food, lots of water, fewer heavy carbs. Your liver and gut have been working overtime. A light day isn't weakness — it's strategic recovery that speeds up your results.",rules:["3 litres of water — no exceptions","Skip rice or heavy carbs at dinner entirely","No alcohol, no fried food, no packaged snacks — hard mode today","🏃 Move it: Gentle 15-minute stretch — give your body recovery, not rest"],funFact:"💡 One clean day per week can accelerate weekly fat loss by 15%. Think of it as maintenance for your internal engine."},mind:{badge:"🔇",focus:"Inner Silence",challenge:"You live in a world that never stops talking. Your phone, your boss, the news, the traffic. Today create pockets of deliberate silence. Silence isn't boredom — it's where your best ideas and clearest thinking live.",practices:["15 minutes of complete silence after waking — no devices","Eat one meal alone in quiet — fully taste everything","3-minute eyes-closed breathing at your desk (set a timer)","Progressive muscle relaxation before sleep — feet to face"],funFact:"🧠 Just 2 minutes of silence per day was found to grow new brain cells in the hippocampus — the memory and learning center."}},
+ {day:12,emoji:"💎",theme:"Ronny, Built to Last!",diet:{badge:"♾️",focus:"Habits That Last Forever",challenge:"Here's the truth: no diet works if you go back to how you ate before. Today choose 3 eating habits from this challenge that you can ACTUALLY keep for the rest of your life. Not perfection — just 3 real, doable shifts.",rules:["Write your 3 permanent diet habits — specific and realistic","Eat dinner before 7pm today","Thank your body out loud for every organ working hard for you","🏃 Move it: 25-minute walk — one step at a time toward 72kg"],funFact:"💡 Sustainable 0.5kg/week loss beats crash-diet 2kg/week loss every time — because you actually keep it off."},mind:{badge:"🧭",focus:"Purpose Connection",challenge:"Positive energy without purpose is just caffeine — it fades. Today connect your health journey to something bigger than a number on a scale. Why does being healthier matter to your life, your work, your family? Go deep.",practices:["5-minute 'Why does this matter?' meditation — go deep","Write a 5-sentence letter to your future self at 72kg","Find one meaningful moment in your work today — hold it","Send genuine appreciation to someone who matters to you"],funFact:"🧠 People with a clear 'why' are 3x more likely to maintain healthy habits long-term. Purpose outlasts willpower every time."}},
+ {day:13,emoji:"🚀",theme:"Ronny's Final Push!",diet:{badge:"💯",focus:"Maximum Clean Day",challenge:"Last full challenge day — go 100% clean. This is your dress rehearsal for a lifetime of better eating. Whole foods only. No shortcuts. Prove to yourself that you CAN do this consistently. Because you absolutely can.",rules:["Whole foods only — nothing processed, nothing packaged","Biggest hydration day yet — 3+ litres","Review all 13 days: what's the single best habit you built?","🏃 Move it: Final push — 30-minute walk or jog. Leave it all out there!"],funFact:"💡 After 13 days of habit building, your brain has already started rewiring neural pathways around food. You're literally a different person than on Day 1."},mind:{badge:"💫",focus:"Energy Legacy",challenge:"Your energy is contagious — positively or negatively. When you build yourself up, you lift everyone around you. Your team. Your family. Your friends. Today be a radiator, not a drain. Put good energy into every interaction.",practices:["Write 10 genuine things you're grateful for — nothing too small","Do one unexpected act of kindness at work","Compare your energy today to Day 1 — rate it 1–10 and note the difference","Vivid visualization: Day 14 completion — feel it in your body"],funFact:"🧠 Gratitude practice for 13+ consecutive days measurably increases optimism, energy, and immune function. You've been building this."}},
+ {day:14,emoji:"🌅",theme:"Ronny's New Story!",diet:{badge:"🎊",focus:"The Beginning, Not The End",challenge:"Step on the scale. Whatever the number — you won. You proved you can choose differently. That's the real prize. Now choose 5 habits to carry forward.",rules:["Weigh yourself — record the change with pride","Eat your healthiest FAVOURITE meal today — full enjoyment","Celebrate without food — treat yourself to something meaningful","🏃 Move it: Victory lap — walk or jog 20 minutes and smile the whole way"],funFact:"💡 Your body's fat-burning enzymes are now 40% more active than on Day 1 from consistent clean eating. Keep the momentum!"},mind:{badge:"🌈",focus:"The New You",challenge:"You're not the same person who started this 14 days ago. You proved something — to yourself, not to anyone else. Today write a letter to the version of you on Day 1. Tell him what you learned. What changed. What you're proud of.",practices:["Write a letter to your Day-1 self — what do you want to tell him?","Sign a 30-day forward commitment: 3 diet + 2 mind habits","Share your full journey — inspire someone else to start","10-minute final meditation: feel the energy in your body right now"],funFact:"🧠 You just completed something only 8% of people who start a 14-day challenge actually finish. You are in the top 8%. Own that."}}
+];
+
+var S={day:1,tab:'diet',done:{},burst:false};
+try{S.day=parseInt(localStorage.getItem('ronny_day')||'1',10)||1;}catch(e){}
+try{S.done=JSON.parse(localStorage.getItem('ronny_done')||'{}');}catch(e){}
+
+function save(){
+  try{localStorage.setItem('ronny_day',String(S.day));}catch(e){}
+  try{localStorage.setItem('ronny_done',JSON.stringify(S.done));}catch(e){}
+}
+
+function pct(d){
+  var dd=DAYS[d-1],tot=dd.diet.rules.length+dd.mind.practices.length,cnt=0;
+  for(var i=0;i<dd.diet.rules.length;i++)if(S.done[d+'-diet-rule-'+i])cnt++;
+  for(var i=0;i<dd.mind.practices.length;i++)if(S.done[d+'-mind-prac-'+i])cnt++;
+  return Math.round(cnt/tot*100);
+}
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function mkRing(p,col){
+  var r=18,circ=2*Math.PI*r,dash=(p/100)*circ;
+  return '<svg class="ring" width="42" height="42">'
+    +'<circle cx="21" cy="21" r="'+r+'" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="5"/>'
+    +'<circle cx="21" cy="21" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="5" '
+    +'stroke-dasharray="'+dash+' '+circ+'" stroke-linecap="round" style="transition:stroke-dasharray 0.5s"/>'
+    +'</svg>';
+}
+
+function mkCB(done,col){
+  var bg=done?col:'rgba(0,0,0,0.05)',bd=done?'none':'1.5px solid rgba(0,0,0,0.12)',sh=done?'0 2px 8px '+col+'88':'none';
+  var chk=done?'<svg width="12" height="12" viewBox="0 0 13 13" fill="none"><path d="M2 6.5L5 9.5L11 3.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>':'';
+  return '<div class="cb" style="background:'+bg+';border:'+bd+';box-shadow:'+sh+'">'+chk+'</div>';
+}
+
+function render(){
+  var d=DAYS[S.day-1],dcnt=0,mcnt=0;
+  for(var i=0;i<d.diet.rules.length;i++)if(S.done[S.day+'-diet-rule-'+i])dcnt++;
+  for(var i=0;i<d.mind.practices.length;i++)if(S.done[S.day+'-mind-prac-'+i])mcnt++;
+  var dp=Math.round(dcnt/d.diet.rules.length*100),mp=Math.round(mcnt/d.mind.practices.length*100);
+
+  var grid='';
+  for(var i=0;i<14;i++){
+    var n=i+1,p=pct(n),cls='db'+(n===S.day?' act':p===100?' cmp':'');
+    grid+='<button class="'+cls+'" onclick="chDay('+n+')" style="border:none"><div class="de">'+DAYS[i].emoji+'</div>'+n+'</button>';
+  }
+
+  var panel='';
+  if(S.tab==='diet'){
+    var rows='';
+    for(var i=0;i<d.diet.rules.length;i++){
+      var dk=S.day+'-diet-rule-'+i,done=!!S.done[dk],cls=done?'task dd':'task du';
+      rows+='<button class="'+cls+'" onclick="tog(\'diet-rule\','+i+')" style="border:none">'
+        +mkCB(done,'#2d8e7a')
+        +'<span class="tx" style="color:'+(done?'#2d8e7a':'#3d2c1e')+';text-decoration:'+(done?'line-through':'none')+';opacity:'+(done?'0.75':'1')+'">'+esc(d.diet.rules[i])+'</span></button>';
+    }
+    panel='<div class="panel"><div class="fc-d">'
+      +'<div class="fh"><span class="fb">'+d.diet.badge+'</span>'
+      +'<div><div class="fsl-d">Today\'s Focus</div><div class="ft-d">'+esc(d.diet.focus)+'</div></div></div>'
+      +'<div class="fc2-d">"'+esc(d.diet.challenge)+'"</div>'
+      +'<div class="ff-d">'+esc(d.diet.funFact)+'</div></div>'
+      +'<div class="tc"><div class="tl">Today\'s Rules 🎯</div><div class="tlist">'+rows+'</div></div></div>';
+  } else {
+    var rows='';
+    for(var i=0;i<d.mind.practices.length;i++){
+      var mk=S.day+'-mind-prac-'+i,done=!!S.done[mk],cls=done?'task md':'task mu';
+      rows+='<button class="'+cls+'" onclick="tog(\'mind-prac\','+i+')" style="border:none">'
+        +mkCB(done,'#4a90d9')
+        +'<span class="tx" style="color:'+(done?'#4a90d9':'#3d2c1e')+';text-decoration:'+(done?'line-through':'none')+';opacity:'+(done?'0.75':'1')+'">'+esc(d.mind.practices[i])+'</span></button>';
+    }
+    panel='<div class="panel"><div class="fc-m">'
+      +'<div class="fh"><span class="fb">'+d.mind.badge+'</span>'
+      +'<div><div class="fsl-m">Today\'s Practice</div><div class="ft-m">'+esc(d.mind.focus)+'</div></div></div>'
+      +'<div class="fc2-m">"'+esc(d.mind.challenge)+'"</div>'
+      +'<div class="ff-m">'+esc(d.mind.funFact)+'</div></div>'
+      +'<div class="tc"><div class="tl">Today\'s Practices 💪</div><div class="tlist">'+rows+'</div></div></div>';
+  }
+
+  var burst=S.burst?'<div class="bo" onclick="clsBurst()"><div class="bb"><div class="be">'+d.emoji+'</div>'
+    +'<div class="bt">Ronny crushed Day '+S.day+'! 🎉</div>'
+    +'<div class="bs">That\'s what we\'re talking about. Keep it up!</div></div></div>':'';
+
+  document.getElementById('root').innerHTML=burst
+    +'<div class="wrap">'
+    +'<div style="margin-bottom:20px"><div class="lbl">💪 Ronny\'s Personal Challenge</div>'
+    +'<div class="sub">Age 43 · 170cm · 86kg → 72kg</div></div>'
+    +'<div class="grid-card"><div class="day-grid">'+grid+'</div></div>'
+    +'<div class="day-card"><div class="dci">'
+    +'<div class="dc-em">'+d.emoji+'</div>'
+    +'<div class="dc-info"><div class="dn">Day '+S.day+' of 14</div><div class="dt">'+esc(d.theme)+'</div></div>'
+    +'<div class="rings">'
+    +'<div class="rw">'+mkRing(dp,'#2d8e7a')+'<div class="rn" style="color:#2d8e7a">'+dcnt+'/'+d.diet.rules.length+'</div></div>'
+    +'<div class="rw">'+mkRing(mp,'#4a90d9')+'<div class="rn" style="color:#4a90d9">'+mcnt+'/'+d.mind.practices.length+'</div></div>'
+    +'</div></div></div>'
+    +'<div class="tabs">'
+    +'<button class="tb'+(S.tab==='diet'?' td':'')+'" onclick="swTab(\'diet\')">💪 Physical Health</button>'
+    +'<button class="tb'+(S.tab==='mind'?' tm':'')+'" onclick="swTab(\'mind\')">🧘 Mental Health</button>'
+    +'</div>'
+    +panel
+    +'<div class="nav">'
+    +'<button class="np" onclick="chDay('+(S.day-1)+')" '+(S.day===1?'disabled':'')+'>← Prev</button>'
+    +'<button class="nn" onclick="chDay('+(S.day+1)+')" '+(S.day===14?'disabled':'')+'>Next Day →</button>'
+    +'</div>'
+    +'<div class="footer">To P\'Ronny — wishing you better health every day 💛<br><span>Created by Gift</span></div>'
+    +'</div>';
+}
+
+function chDay(n){if(n<1||n>14)return;S.day=n;S.tab='diet';save();render();}
+function swTab(t){S.tab=t;render();}
+function clsBurst(){S.burst=false;render();}
+function tog(type,idx){
+  var key=S.day+'-'+type+'-'+idx;
+  S.done[key]=!S.done[key];
+  save();
+  var d=DAYS[S.day-1],all=true;
+  for(var i=0;i<d.diet.rules.length;i++)if(!S.done[S.day+'-diet-rule-'+i]){all=false;break;}
+  if(all)for(var i=0;i<d.mind.practices.length;i++)if(!S.done[S.day+'-mind-prac-'+i]){all=false;break;}
+  if(all&&S.done[key]){S.burst=true;render();setTimeout(function(){S.burst=false;render();},3000);return;}
+  render();
+}
+render();
+</script>
+</body>
+</html>
